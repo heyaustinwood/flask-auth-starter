@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+    <h1>Sign Up</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.email.label }}
+            {{ form.email() }}
+        </div>
+        <div>
+            {{ form.password.label }}
+            {{ form.password() }}
+        </div>
+        <div>
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password() }}
+        </div>
+        <div>
+            {{ form.accept_terms.label }}
+            {{ form.accept_terms() }}
+        </div>
+        {{ form.submit() }}
+    </form>
+{% endblock %}

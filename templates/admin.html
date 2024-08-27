@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+    <h1>Admin Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Is Admin</th>
+                <th>Created At</th>
+                <th>Last Login</th>
+                <th>Terms Accepted At</th>
+                <th>Terms Accepted IP</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.is_admin }}</td>
+                <td>{{ user.created_at }}</td>
+                <td>{{ user.last_login }}</td>
+                <td>{{ user.terms_accepted_at }}</td>
+                <td>{{ user.terms_accepted_ip }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
