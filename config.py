@@ -18,12 +18,14 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
     FLASK_ENV = 'development'
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///dev.db'
     MAIL_SERVER = 'sandbox.smtp.mailtrap.io'
     MAIL_PORT = 2525
     MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_DEFAULT_SENDER = 'noreply@example.com'
+    MAIL_DEBUG = True

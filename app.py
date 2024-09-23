@@ -1,5 +1,8 @@
 import os
+import secrets
+from dotenv import load_dotenv
 from datetime import datetime, timedelta
+
 from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -8,25 +11,24 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo
 from flask_migrate import Migrate
 from flask_mail import Mail, Message
-import secrets
-from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
 
-# Load the appropriate configuration
-if os.environ.get('FLASK_ENV') == 'production':
-    app.config.from_object('config.ProdConfig')
-else:
+# Load configuration based on FLASK_ENV
+if os.environ.get('FLASK_ENV') == 'development':
     app.config.from_object('config.DevConfig')
-
+else:
+    app.config.from_object('config.ProdConfig')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
 mail = Mail(app)
+
+# Initialize LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 from models import User
 
@@ -110,15 +112,18 @@ def forgot_password():
         if user:
             token = secrets.token_urlsafe(32)
             user.password_reset_token = token
-            user.password_reset_expiration = datetime.utcnow() + timedelta(minutes=10)
+            user.password_reset_expiration = datetime.utcnow() + timedelta(minutes=30)
             db.session.commit()
             
             reset_link = url_for('reset_password', token=token, _external=True)
             msg = Message('Password Reset Request',
-                          recipients=[user.email],
-                          body=f'Click the following link to reset your password: {reset_link}')
-            mail.send(msg)
-            
+                          recipients=[user.email])
+            msg.body = render_template('emails/password_reset.txt', reset_link=reset_link)
+            try:
+                mail.send(msg)
+            except Exception as e:
+                flash('An error occurred while sending the password reset email. Please try again later.')
+                return redirect(url_for('forgot_password'))
         flash('If an account with that email exists, we have sent a password reset link.')
         return redirect(url_for('login'))
     return render_template('forgot_password.html', form=form)
@@ -127,19 +132,8 @@ def forgot_password():
 def reset_password(token):
     user = User.query.filter_by(password_reset_token=token).first()
     if not user or user.password_reset_expiration < datetime.utcnow():
-        flash('The password reset link has expired. We have sent you a new link.')
-        if user:
-            new_token = secrets.token_urlsafe(32)
-            user.password_reset_token = new_token
-            user.password_reset_expiration = datetime.utcnow() + timedelta(minutes=10)
-            db.session.commit()
-            
-            reset_link = url_for('reset_password', token=new_token, _external=True)
-            msg = Message('New Password Reset Request',
-                          recipients=[user.email],
-                          body=f'Click the following link to reset your password: {reset_link}')
-            mail.send(msg)
-        return redirect(url_for('login'))
+        flash('The password reset link is invalid or has expired. Please request a new one.')
+        return redirect(url_for('forgot_password'))
 
     form = ResetPasswordForm()
     if form.validate_on_submit():
@@ -147,7 +141,7 @@ def reset_password(token):
         user.password_reset_token = None
         user.password_reset_expiration = None
         db.session.commit()
-        flash('Your password was reset successfully.')
+        flash('Your password has been reset successfully. You can now log in with your new password.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
@@ -167,6 +161,18 @@ def page_not_found(e):
 @app.errorhandler(500)
 def internal_server_error(e):
     return render_template('500.html'), 500
+
+@app.route('/test-email')
+def test_email():
+    try:
+        msg = Message('Test Email',
+                      sender=app.config['MAIL_DEFAULT_SENDER'],
+                      recipients=['test@example.com'],
+                      body='This is a test email from Flask.')
+        mail.send(msg)
+        return 'Test email sent successfully! Check your logs for details.'
+    except Exception as e:
+        return f'Failed to send test email: {str(e)}'
 
 if __name__ == '__main__':
     app.run()
