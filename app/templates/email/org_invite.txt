@@ -1,0 +1,12 @@
+Dear {{ email }},
+
+You have been invited to join {{ organization.name }} by {{ inviter.email }}.
+
+To accept this invitation, please click on the following link:
+
+{{ url_for('auth.accept_invitation', token=token, _external=True) }}
+
+If you did not expect this invitation, please ignore this email.
+
+Best regards,
+The {{ organization.name }} Team

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ g.current_organization.name }} Members</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in members %}
+                <tr>
+                    <td>{{ member.user.email }}</td>
+                    <td>{{ member.role }}</td>
+                    <td>
+                        <form method="post" action="{{ url_for('org.change_role', user_id=member.user.id) }}">
+                            <select name="role">
+                                <option value="admin" {% if member.role == 'admin' %}selected{% endif %}>Admin</option>
+                                <option value="member" {% if member.role == 'member' %}selected{% endif %}>Member</option>
+                            </select>
+                            <input type="submit" value="Change Role">
+                        </form>
+                        <form method="post" action="{{ url_for('org.remove_member', user_id=member.user.id) }}">
+                            <input type="submit" value="Remove">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

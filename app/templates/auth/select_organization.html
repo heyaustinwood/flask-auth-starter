@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Select Organization</h1>
+    <form method="post">
+        <select name="organization">
+            {% for org in organizations %}
+                <option value="{{ org.id }}">{{ org.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Select">
+    </form>
+    <a href="{{ url_for('auth.create_organization') }}">Create New Organization</a>
+{% endblock %}

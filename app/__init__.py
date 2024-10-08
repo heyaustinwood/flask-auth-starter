@@ -14,10 +14,15 @@ login = LoginManager()
 login.login_view = 'auth.login'
 mail = Mail()
 
+from app.org import bp as org_bp
+
 def create_app(config_class=Config):
     app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
     app.config.from_object(config_class)
     
+    app.config['SESSION_COOKIE_SECURE'] = True
+    app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+
     db.init_app(app)
     migrate.init_app(app, db)
     login.init_app(app)
@@ -25,6 +30,8 @@ def create_app(config_class=Config):
 
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp)
+
+    app.register_blueprint(org_bp, url_prefix='/org')
 
     from app import routes
     routes.init_app(app)
@@ -40,6 +47,17 @@ def create_app(config_class=Config):
 
         app.logger.setLevel(logging.INFO)
         app.logger.info('Flask Auth Starter')
+
+    if not app.debug:
+        if not os.path.exists('logs'):
+            os.mkdir('logs')
+        file_handler = RotatingFileHandler('logs/flask_auth_starter.log', maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+            '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.DEBUG)
+        app.logger.addHandler(file_handler)
+        app.logger.setLevel(logging.DEBUG)
+        app.logger.info('Flask Auth Starter startup')
 
     return app
 

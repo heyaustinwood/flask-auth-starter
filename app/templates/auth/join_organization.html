@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Join Organization</h1>
+    <p>You've been invited to join an organization. Please set your password to complete the registration.</p>
+    <form method="post">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <input type="submit" value="Join">
+    </form>
+{% endblock %}

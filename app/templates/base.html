@@ -15,9 +15,16 @@
         <a href="{{ url_for('auth.signup') }}">Sign Up</a>
         {% else %}
         <a href="{{ url_for('auth.logout') }}">Logout</a>
+        {% if g.current_organization %}
+        <a href="{{ url_for('org.dashboard') }}">Organization Dashboard</a>
+        {% endif %}
+        <a href="{{ url_for('auth.select_organization') }}">Switch Organization</a>
         {% endif %}
         <br>
         <span>{{ current_user.email }}</span>
+        {% if g.current_organization %}
+        <span>Current Organization: {{ g.current_organization.name }}</span>
+        {% endif %}
     </div>
     <hr>
     {% with messages = get_flashed_messages() %}

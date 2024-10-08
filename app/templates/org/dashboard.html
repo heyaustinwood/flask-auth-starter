@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ g.current_organization.name }} Dashboard</h1>
+    <p>Welcome to your organization dashboard!</p>
+    {% if current_user.organizations|selectattr("organization_id", "equalto", g.current_organization.id)|selectattr("role", "equalto", "admin")|list %}
+        <a href="{{ url_for('org.members') }}">Manage Members</a>
+        <a href="{{ url_for('auth.invite_user') }}">Invite User</a>
+    {% endif %}
+{% endblock %}
