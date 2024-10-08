@@ -119,17 +119,46 @@ def create_organization():
 @require_org_permission('admin')
 def invite_user():
     if request.method == 'POST':
-        email = request.form.get('email').lower()
-        if User.query.filter(func.lower(User.email) == email).first():
-            flash('This user is already registered.')
-            return redirect(url_for('auth.invite_user'))
-        token = Invitation.generate_token()
-        invitation = Invitation(email=email, organization_id=g.current_organization.id, inviter_id=current_user.id, token=token)
-        db.session.add(invitation)
-        db.session.commit()
-        send_invitation_email(email, current_user, g.current_organization, token)
-        flash(f'Invitation sent to {email}')
-        return redirect(url_for('auth.invite_user'))
+        email = request.form['email']
+        user = User.query.filter_by(email=email).first()
+
+        if user:
+            # Check if the user is already a member of the organization
+            existing_membership = UserOrganization.query.filter_by(
+                user_id=user.id, 
+                organization_id=g.current_organization.id
+            ).first()
+
+            if existing_membership:
+                flash('This user is already a member of the organization.', 'info')
+                return redirect(url_for('org.members'))
+
+            # Create a new UserOrganization entry for existing user
+            new_membership = UserOrganization(
+                user_id=user.id,
+                organization_id=g.current_organization.id,
+                role='member'
+            )
+            db.session.add(new_membership)
+            db.session.commit()
+            send_invitation_email(email, current_user, g.current_organization)
+            flash(f'User {email} has been added to the organization.', 'success')
+        else:
+            # Create invitation for new user
+            token = secrets.token_urlsafe(32)
+            invitation = Invitation(
+                email=email,
+                organization_id=g.current_organization.id,
+                token=token,
+                inviter_id=current_user.id
+            )
+            db.session.add(invitation)
+            db.session.commit()
+            send_invitation_email(email, current_user, g.current_organization, token)
+            flash(f'Invitation sent to {email}', 'success')
+
+        return redirect(url_for('org.members'))
+
     return render_template('auth/invite_user.html')
 
 @bp.route('/join/<token>', methods=['GET', 'POST'])
@@ -201,20 +230,32 @@ def reset_password(token):
 def accept_invitation(token):
     invitation = Invitation.query.filter_by(token=token).first()
     if not invitation:
-        flash('Invalid or expired invitation.')
+        flash('Invalid or expired invitation.', 'error')
+        return redirect(url_for('index'))
+
+    # Check if the invitation has expired (e.g., after 7 days)
+    if datetime.utcnow() - invitation.created_at > timedelta(days=7):
+        db.session.delete(invitation)
+        db.session.commit()
+        flash('This invitation has expired.', 'error')
         return redirect(url_for('index'))
 
     if current_user.is_authenticated:
-        if UserOrganization.query.filter_by(user_id=current_user.id, organization_id=invitation.organization_id).first():
-            flash('You are already a member of this organization.')
+        existing_membership = UserOrganization.query.filter_by(
+            user_id=current_user.id, 
+            organization_id=invitation.organization_id
+        ).first()
+        
+        if existing_membership:
+            flash('You are already a member of this organization.', 'info')
             return redirect(url_for('index'))
         
         user_org = UserOrganization(user=current_user, organization_id=invitation.organization_id, role='member')
         db.session.add(user_org)
         db.session.delete(invitation)
         db.session.commit()
-        flash('You have joined the organization.')
-        return redirect(url_for('index'))
+        flash('You have joined the organization.', 'success')
+        return redirect(url_for('org.dashboard', org_id=invitation.organization_id))
 
     if request.method == 'POST':
         password = request.form.get('password')
@@ -227,10 +268,10 @@ def accept_invitation(token):
                 db.session.add(user_org)
                 db.session.delete(invitation)
                 db.session.commit()
-                flash('You have joined the organization.')
-                return redirect(url_for('index'))
+                flash('You have joined the organization.', 'success')
+                return redirect(url_for('org.dashboard', org_id=invitation.organization_id))
             else:
-                flash('Invalid password.')
+                flash('Invalid password.', 'error')
         else:
             user = User(email=invitation.email)
             user.set_password(password)
@@ -240,7 +281,7 @@ def accept_invitation(token):
             db.session.delete(invitation)
             db.session.commit()
             login_user(user)
-            flash('Your account has been created and you have joined the organization.')
-            return redirect(url_for('index'))
+            flash('Your account has been created and you have joined the organization.', 'success')
+            return redirect(url_for('org.dashboard', org_id=invitation.organization_id))
 
     return render_template('auth/accept_invitation.html', email=invitation.email)

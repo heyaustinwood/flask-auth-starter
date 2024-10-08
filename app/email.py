@@ -1,6 +1,7 @@
 from flask import render_template, current_app
 from flask_mail import Message
 from app import mail
+from app.models import User
 
 def send_async_email(app, msg):
     with app.app_context():
@@ -26,15 +27,22 @@ def send_password_reset_email(user):
                                 token=token)
     send_email(subject, sender, recipients, text_body)
 
-def send_invitation_email(email, inviter, organization, token):
-    subject = f'Invited to Join {organization.name}'
-    sender = current_app.config['MAIL_DEFAULT_SENDER']
-    recipients = [email]
-    template_path = 'email/org_invite.txt'
-    print(f"Attempting to render template: {template_path}")
+def send_invitation_email(email, inviter, organization, token=None):
+    if token:
+        template_path = 'email/org_invite.txt'
+        subject = f'Invite to Join {organization.name}'
+    else:
+        template_path = 'email/org_invite_existing.txt'
+        subject = f'Added to {organization.name}'
+
     text_body = render_template(template_path,
+                                email=email,
+                                user=User.query.filter_by(email=email).first(),
                                 inviter=inviter,
                                 organization=organization,
                                 token=token)
-    print(f"Rendered template content: {text_body}")
-    send_email(subject, sender, recipients, text_body)
+
+    send_email(subject,
+               sender=current_app.config['MAIL_DEFAULT_SENDER'],
+               recipients=[email],
+               text_body=text_body)

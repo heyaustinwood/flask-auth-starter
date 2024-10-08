@@ -1,0 +1,10 @@
+Dear {{ user.email }},
+
+You have been added to the organization {{ organization.name }} by {{ inviter.email }}.
+
+You can now access this organization by logging into your account.
+
+If you believe this is a mistake, please contact the organization administrator.
+
+Best regards,
+The {{ organization.name }} Team
