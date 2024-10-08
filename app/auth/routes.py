@@ -15,10 +15,10 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     if request.method == 'POST':
-        email = request.form.get('email').lower()  # Convert email to lowercase
+        email = request.form.get('email').lower()
         password = request.form.get('password')
         remember_me = request.form.get('remember_me') == 'on'
-        user = User.query.filter(func.lower(User.email) == email).first()  # Case-insensitive query
+        user = User.query.filter(func.lower(User.email) == email).first()
         if user is None or not user.check_password(password):
             flash('Invalid email or password')
             return redirect(url_for('auth.login'))
@@ -39,9 +39,9 @@ def signup():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     if request.method == 'POST':
-        email = request.form.get('email').lower()  # Convert email to lowercase
+        email = request.form.get('email').lower()
         password = request.form.get('password')
-        user = User.query.filter(func.lower(User.email) == email).first()  # Case-insensitive query
+        user = User.query.filter(func.lower(User.email) == email).first()
         if user is not None:
             flash('Please use a different email address.')
             return redirect(url_for('auth.signup'))
@@ -58,8 +58,8 @@ def forgot_password():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     if request.method == 'POST':
-        email = request.form.get('email').lower()  # Convert email to lowercase
-        user = User.query.filter(func.lower(User.email) == email).first()  # Case-insensitive query
+        email = request.form.get('email').lower()
+        user = User.query.filter(func.lower(User.email) == email).first()
         if user:
             token = secrets.token_urlsafe(32)
             user.reset_password_token = token
