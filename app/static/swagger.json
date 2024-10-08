@@ -1,0 +1,184 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RedataPro API",
+    "version": "1.0.0",
+    "description": "API for retrieving property information"
+  },
+  "paths": {
+    "/api/v1/property": {
+      "get": {
+        "summary": "Get property information",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "zip",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "apn",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fips",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PropertyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PropertyResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "property": {
+                "type": "object",
+                "properties": {
+                  "address": { "type": "string" },
+                  "unit_type": { "type": "string" },
+                  "unit": { "type": "string" },
+                  "city": { "type": "string" },
+                  "state": { "type": "string" },
+                  "zipcode": { "type": "string" },
+                  "label": { "type": "string" },
+                  "geo_precision": { "type": "string" },
+                  "lat": { "type": "string" },
+                  "lon": { "type": "string" }
+                }
+              },
+              "parcel": {
+                "type": "object",
+                "properties": {
+                  "apn": { "type": "string" },
+                  "apn_unformatted": { "type": "string" },
+                  "fips": { "type": "string" },
+                  "county_name": { "type": "string" },
+                  "use_code": { "type": "string" },
+                  "subdivision": { "type": "string" },
+                  "lot_size": { "type": "string" },
+                  "lot_number": { "type": "string" },
+                  "legal_description": { "type": "string" },
+                  "mailing_address": { "type": "object" }
+                }
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "mailing_address": { "type": "object" },
+                  "owner_occupied": { "type": "boolean" },
+                  "owner_type": { "type": "string" }
+                }
+              },
+              "building": {
+                "type": "object",
+                "properties": {
+                  "year_built": { "type": "string" },
+                  "beds": { "type": "string" },
+                  "baths": { "type": "string" },
+                  "living_area": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              },
+              "taxes": {
+                "type": "object",
+                "properties": {
+                  "status": { "type": "string" },
+                  "Delinquent": { "type": "boolean" }
+                }
+              },
+              "foreclosure": {
+                "type": "object",
+                "properties": {
+                  "is_active": { "type": "boolean" },
+                  "auction_date": { "type": "string" },
+                  "auction_time": { "type": "string" },
+                  "auction_location": { "type": "string" }
+                }
+              },
+              "valuation": {
+                "type": "object",
+                "properties": {
+                  "assessed_valuation": { "type": "string" }
+                }
+              },
+              "transfers": { "type": "array" },
+              "deeds": { "type": "array" },
+              "liens": { "type": "array" }
+            }
+          },
+          "metadata": { "type": "object" },
+          "warnings": { "type": "array" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

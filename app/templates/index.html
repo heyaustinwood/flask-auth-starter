@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>RedataPro API Tester</h1>
+    <form method="POST" action="{{ url_for('index') }}">
+        <label for="api_provider">API Provider:</label>
+        <select id="api_provider" name="api_provider" required>
+            <option value="batchdata">BatchData</option>
+            <option value="blackknight">Black Knight</option>
+            <option value="housecanary">HouseCanary</option>
+        </select><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required><br><br>
+        
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required><br><br>
+        
+        <label for="zip">ZIP:</label>
+        <input type="text" id="zip" name="zip" required><br><br>
+        
+        <label for="apn">APN (optional):</label>
+        <input type="text" id="apn" name="apn"><br><br>
+        
+        <label for="fips">FIPS (optional):</label>
+        <input type="text" id="fips" name="fips"><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <h1>Request History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>ZIP</th>
+                <th>Service</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                <td>{{ request.address }}</td>
+                <td>{{ request.city }}</td>
+                <td>{{ request.state }}</td>
+                <td>{{ request.zip_code }}</td>
+                <td>{{ request.service }}</td>
+                <td><a href="{{ url_for('view_request', request_id=request.id) }}">View Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

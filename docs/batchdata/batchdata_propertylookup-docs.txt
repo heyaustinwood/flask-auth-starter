@@ -1,0 +1,2480 @@
+Property Lookup
+POST
+https://api.batchdata.com/api/v1
+/property/lookup/all-attributes
+Property response will only provide the attributes categorized under Basic Property Data. Please get in touch with sales@batchdata.com to get more attributes in the response.
+
+Get information about multiple properties.
+
+To retrieve information about a property using the property’s address, use the requests.address object and provide values for the street, city, state, and zip.
+
+To retrieve information about a property using the property’s parcel number, provide values for the requests.apn, requests.address.state and requests.address.county, or requests.apn, requests.address.state and requests.countyFipsCode.
+
+Each matched result counts as an API request.
+
+Request
+Headers
+Authorization
+string
+required
+Enter "Bearer" followed by the API Token
+
+Example:
+Bearer [40 digit API token]
+Body
+
+application/json
+
+application/json
+The requests array contains property objects
+
+An object containing the requested properties and options to control request processing and response formatting.
+
+requests
+array[object]
+An array of property requests
+
+address
+object
+The property's address
+
+addressValidity
+string
+The validity of the address (e.g. Valid, Invalid, Partially Valid)
+
+houseNumber
+string
+The house number (e.g. 123)
+
+street
+string
+The street address (e.g. 123 Main St Apt 45)
+
+city
+string
+The city (e.g. Chicago)
+
+county
+string
+The county (e.g. Cook)
+
+state
+string
+The state abbreviation (e.g. IL)
+
+zip
+string
+The zip code (e.g. 12345)
+
+zipPlus4
+string
+The zip plus 4 code (e.g. 6789)
+
+unitNumber
+string
+The unit number of the response address
+
+unitType
+string
+The unit type of the response address
+
+formattedStreet
+string
+The street address without the unit number or house number
+
+streetNoUnit
+string
+The street address without the unit number
+
+localities
+array[string]
+The property's localities (e.g. suburbs, neighborhoods, etc.)
+
+cityAliases
+array[string]
+The property's city aliases
+
+hash
+string
+The property address hash.
+
+oldHashes
+array[string]
+The address old MD5 hashes list
+
+hash
+string
+An MD5 hash of the property address
+
+apn
+string
+The assessors parcel number
+
+countyFipsCode
+string
+The fips code for the county
+
+requestId
+string
+A request ID used to correlate responses with requests
+
+options
+object
+The request options that control request processing and response formatting
+
+skip
+number
+The number of records to skip in results. Used in paging. If no value is specified, Default value 0 is considered.
+
+take
+number
+The number of property results in response. If no value is specified, the default value 25 is considered. The minimum and maximum values are 1 and 500.
+
+>= 1
+<= 500
+showRequests
+boolean
+A flag indicating whether the original request data should be returned in the response object
+
+Example:
+["address","currentOwner","currentOwner.mailingAddress","currentOwner.mailingAddress.city","sale","legal"]
+areaPolygon
+boolean
+A flag indicating whether the response object should contain the area polygon data or not
+
+quicklistCounts
+boolean
+A flag indicating whether to return quicklist counts with the results
+
+useDistance
+boolean
+A flag indicating whether distance should be taken into consideration in the comps calculation
+
+useBoundingBox
+boolean
+A flag indicating whether rectangle bounding box distance should be taken into consideration in the comps calculation
+
+distanceMiles
+number
+The distance in miles
+
+distanceYards
+number
+The distance in yards
+
+distanceFeet
+number
+The distance in feet
+
+distanceKilometers
+number
+The distance in kilometers
+
+distanceMeters
+number
+The distance in meters
+
+useBedrooms
+boolean
+A flag indicating whether the number of bedrooms should be taken into consideration in the comps calculation
+
+minBedrooms
+number
+The minimum number of bedrooms expressed as a delta
+
+maxBedrooms
+number
+The maximum number of bedrooms expressed as a delta
+
+boundingBoxNw
+object
+An object containing a geo point
+
+latitude
+number
+The latitude value
+
+longitude
+number
+The longitude value
+
+boundingBoxSe
+object
+An object containing a geo point
+
+latitude
+number
+The latitude value
+
+longitude
+number
+The longitude value
+
+useBathrooms
+boolean
+A flag indicating whether the number of bathrooms should be taken into consideration in the comps calculation
+
+minBathrooms
+number
+The minimum number of bathrooms expressed as a delta
+
+maxBathrooms
+number
+The maximum number of bathrooms expressed as a delta
+
+useStories
+boolean
+A flag indicating whether the number of stories should be taken into consideration in the comps calculation
+
+minStories
+number
+The minimum number of stories expressed as a delta
+
+maxStories
+number
+The maximum number of stories expressed as a delta
+
+useArea
+boolean
+A flag indicating whether living area square footage should be taken into consideration in the comps calculation. Only used for search endpoints.
+
+minAreaPercent
+number
+The minimum square footage expressed as a delta percent
+
+maxAreaPercent
+number
+The maximum square footage expressed as a delta percent
+
+useYearBuilt
+boolean
+A flag indicating whether the year built should be taken into consideration in the comps calculation
+
+minYearBuilt
+number
+The minimum year built expressed as a delta
+
+maxYearBuilt
+number
+The maximum year built expressed as a delta
+
+useLotSize
+boolean
+A flag indicating whether lot size should be taken into consideration in the comps calculation. Only used for search endpoints.
+
+minLotSizePercent
+number
+The minimum lot size expressed as a delta percent should be taken into consideration if useLotSize is true. Only used for search endpoints.
+
+maxLotSizePercent
+number
+The maximum lot size expressed as a delta percent should be taken into consideration if useLotSize is true. Only used for search endpoints.
+
+webhookUrl
+string
+A webhook URL to which the response object should be sent (asynchronous requests only)
+
+errorWebhookUrl
+string
+An error webhook URL to which the error details should be sent (asynchronous requests only)
+
+skipTrace
+boolean
+A flag indicating whether person's details will be returned in response under owner object. Only used for search endpoints.
+
+aggregate
+array[string]
+An array of fields for which aggregate average values needs to be calculated. Currently this feature is supported for valuation.averageEstimatedValue field. Only used for search endpoints.
+
+aggregateLoanTypes
+boolean
+A flag indicating aggregate loan types request. When set to false or omitted, aggregate loan types values will not return matching properties. Use "aggregateLoanTypes": true to return property matches for the additional aggregate loan types: Commercial, Construction Loan, Conventional, FHA, Future-Advance Mortgage, Land Contract, Line of Credit, Purchase Money Mortgage, Reverse Mortgage, Seller Carryback, Standalone Refinance, “Unknown & Other”, and VA. Note that the Commercial, Purchase Money Order, and VA are special cases and will return property matches regardless of whether the aggregateLoanTypes request option is specified.
+
+sessionId
+string
+The sessionId is required when making pagination requests. The session ID request option ensures that API pagination using the skip & take request options will return the correct search results across pagination requests. Session ID can be any valid string. The same value used in the initial API request should be used for all subsequent pagination requests. A new session Id should be used when initiating a new API request.
+
+images
+boolean
+A flag indicating whether the response object should contain property images.
+
+dateFormat
+string
+A flag indicating whether the date format should be datetime or date
+
+Example:
+iso-date,iso-date-time
+Responses
+200
+400
+401
+403
+404
+405
+429
+500
+OK
+
+Body
+
+application/json
+
+application/json
+responses
+/
+200
+/
+results
+.
+meta
+.
+requestId
+Controller result container for multiple properties
+
+status
+object
+A container for controller result status information.
+
+text
+string
+The text of the status
+
+message
+string
+A more detailed message regarding the response status
+
+code
+number
+The HTTP error code
+
+results
+object
+The information about multiple properties
+
+properties
+array[object]
+An array of objects containing full property details. Full property details are returned if all or custom is specified as the projection.
+
+_id
+string
+The property id
+
+dateModified
+string
+The property date modified
+
+address
+object
+The address of the property
+
+addressValidity
+string
+The validity of the address (e.g. Valid, Invalid, Partially Valid)
+
+houseNumber
+string
+House number of the property address.
+
+street
+string
+The street address (e.g. 123 Main Street)
+
+city
+string
+The city (e.g. Chicago)
+
+cityAliases
+array[string]
+The city aliases
+
+county
+string
+Property address County
+
+state
+string
+Property address state (2 letter abbreviation)
+
+zip
+string
+Property address zip code.
+
+zipPlus4
+string
+Property address zip+4 code
+
+unitNumber
+string
+Unit number
+
+unitType
+string
+Unit type
+
+formattedStreet
+string
+The street address without the unit number or house number
+
+streetNoUnit
+string
+The street address without the unit number
+
+localities
+array[string]
+The property's localities (e.g. suburb, neighborhood, etc.).
+
+latitude
+number
+The property's latitude
+
+longitude
+number
+The property's longitude
+
+countyFipsCode
+string
+The county FIPS code for the property address
+
+hash
+string
+The property's address hash. Used to uniquely identify an address street, city, state and zip.
+
+normalized
+boolean
+A flag indicating whether the address was normalized
+
+deliveryPointCode
+string
+The 2 digits representing the delivery point of the address + an additional check digit. Useful for deriving the usps delivery point barcode as {zip}{zipPlus4}{deliveryPointCode}
+
+geoStatusCode
+string
+The property's address geo status code
+
+geoStatus
+string
+The property's address geo status
+
+oldHashes
+array[string]
+The property's address old hashes
+
+assessment
+object
+Property assessment data
+
+assessedImprovementValue
+number
+Assessed improvement value
+
+assessedLandValue
+number
+Assessed land value
+
+totalAssessedValue
+number
+Total assessed value
+
+assessmentYear
+number
+Assessment year
+
+improvementMarketValue
+number
+Market value improvement
+
+landMarketValue
+number
+Market value land
+
+totalMarketValue
+number
+Total market value
+
+marketValueYear
+number
+Market value year
+
+building
+object
+The details of the property building(s)
+
+totalBuildingAreaSquareFeet
+number
+The building square footage that can most accurately be used for assessments or comparable
+
+totalBuildingAreaCode
+string
+A code used to indicate the source used to populate the total building area square feet (living, adjusted, gross, etc.)
+
+totalBuildingAreaCodeDescription
+string
+The source used to populate the total building area square feet
+
+livingAreaSquareFeet
+number
+The square footage of the living area. This is typically the area of a building that is heated or air conditioned and does not include garage, porch or basement areas.
+
+groundFloorAreaSquareFeet
+number
+The square footage of the ground floor.
+
+atticSquareFeet
+number
+The square footage of the attic
+
+atticUnfinishedSquareFeet
+number
+The square footage of the unfinished portion of the attic
+
+atticFinishedSquareFeet
+number
+The square footage of the finished portion of the attic
+
+basementSquareFeet
+number
+The square footage of the basement
+
+basementUnfinishedSquareFeet
+number
+The square footage of the unfinished portion of the basement
+
+basementFinishedSquareFeet
+number
+The square footage of the finished portion of the basement
+
+garageSquareFeet
+number
+The square footage of the garage
+
+garageUnfinishedSquareFeet
+number
+The square footage of the unfinished portion of the garage
+
+garageFinishedSquareFeet
+number
+The square footage of the finished portion of the garage
+
+yearBuilt
+number
+The construction year of the building
+
+effectiveYearBuilt
+number
+The year of the latest significant construction on the building
+
+buildingCount
+number
+The number of buildings on the property
+
+buildingType
+string
+Indicates whether the property is a "Multi-Unit Building" or an "Individual Unit" in a Multi-Unit Building
+
+roomCount
+number
+The total number of rooms
+
+bedroomCount
+number
+The number of bedrooms
+
+calculatedBathroomCount
+number
+The calculated number of bathrooms (e.g. 1.5 baths)
+
+fullBathroomCount
+number
+The number of full bathrooms
+
+partialBathroomCount
+number
+The number of partial bathrooms
+
+bathroomCount
+number
+The total number of bathrooms
+
+bathFixtureCount
+number
+The total number of bathroom plumbing fixtures
+
+storyCount
+number
+The number of stories. If the number is not a whole number (e.g. 2.5) then the fraction indicates the relative size of the top floor.
+
+elevatorCount
+number
+The number of elevators
+
+garageParkingSpaceCount
+number
+The number of parking spaces
+
+residentialUnitCount
+number
+The number of residential or apartment units
+
+unitCount
+number
+The total number of units
+
+features
+array[string]
+The building features (e.g. garage, pool, porch, etc.)
+
+commercialUnitCount
+number
+Number of commercial units in the property
+
+otherRoomsCode
+string
+A code indicating other rooms (e.g. family room, den, mud room, etc.)
+
+otherRooms
+array[string]
+Other rooms (e.g. family room, den, mud room, etc.)
+
+airConditioningSourceCode
+string
+A code indicating the source of air conditioning used to cool the building
+
+airConditioningSource
+string
+The source of air conditioning used to cool the building
+
+basementTypeCode
+string
+A code indicating the type of basement in the building
+
+basementType
+string
+The type of basement in the building
+
+buildingClassCode
+string
+A code indicating the primary building type
+
+buildingClass
+string
+The primary building type
+
+buildingConditionCode
+string
+A code indicating the condition of the building
+
+buildingCondition
+string
+The condition of the building
+
+buildingQualityCode
+string
+A code indicating the quality of the building
+
+buildingQuality
+string
+The quality of the building
+
+constructionTypeCode
+string
+A code indicating the construction type
+
+constructionType
+string
+The construction type
+
+drivewayCode
+string
+A code indicating the type of driveway on the property
+
+driveway
+string
+The type of driveway on the property
+
+exteriorWallsCode
+string
+A code indicating the type of exterior walls
+
+exteriorWalls
+string
+The type of exterior walls
+
+interiorWallsCode
+string
+A code indicating the type of interior walls
+
+interiorWalls
+string
+The type of interior walls
+
+floorCoverCode
+string
+A code indicating the type of floor cover
+
+floorCover
+string
+The type of floor cover
+
+foundationCode
+string
+A code indicating the type of foundation
+
+foundation
+string
+The type of foundation
+
+garageCode
+string
+A code indicating the type of garage or carport present
+
+garage
+string
+The type of garage or carport present
+
+heatSourceCode
+string
+A code indicating the source of heat
+
+heatSource
+string
+The source of heat
+
+heatingFuelTypeCode
+string
+A code indicating the heating fuel type
+
+heatingFuelType
+string
+The heating fuel type
+
+patioCode
+string
+A code indicating the type of patio
+
+patio
+string
+The type of patio
+
+poolCode
+string
+A code indicating the type of pool installed on the property
+
+pool
+string
+The type of pool installed on the property
+
+porchCode
+string
+A code indicating the type of porch
+
+porch
+string
+The type of porch
+
+roofCoverCode
+string
+A code indicating the type of roof cover
+
+roofCover
+string
+The type of roof cover
+
+roofTypeCode
+string
+A code indicating the roof type
+
+roofType
+string
+The roof type
+
+sewerCode
+string
+A code indicating the type of sewer system for the property
+
+sewer
+string
+The type of sewer system for the property
+
+styleCode
+string
+A code indicating the building style
+
+style
+string
+The building style
+
+waterServiceCode
+string
+A code indicating the type of water service on the property
+
+waterService
+string
+The type of water service on the property
+
+fireplaceCount
+number
+A count indicating the number of fireplaces
+
+deedHistory
+array[object]
+Property Deed
+
+buyers
+array[string]
+The buyers names
+
+sellers
+array[string]
+The seller names
+
+recordingDate
+string
+The recording date of the loan
+
+saleDate
+string
+The property sale date
+
+documentNumber
+string
+Recorders Document Number
+
+recordingBook
+string
+Recorders Book Number
+
+recordingPage
+string
+Recorders Page Number
+
+documentDate
+string
+The document date of the loan
+
+documentTypeCode
+string
+The raw document type code from the data vendor
+
+documentType
+string
+The normalized document type
+
+salePrice
+number
+The sale price of the transaction
+
+partialInterestTypeCode
+string
+The partial interest type code
+
+partialInterestType
+string
+The partial interest type
+
+newConstruction
+boolean
+A flag indicating the sale is for a property with a new structure
+
+interFamily
+boolean
+A flag indicating the sale is between related parties
+
+foreclosure
+boolean
+A flag indicating the sale/transfer is at auction by an investor or repossession by a financial institution
+
+reoSale
+boolean
+A flag indicating the sale is by a financial institution back to the open market after a foreclosure
+
+demographics
+object
+Information about the property demographics
+
+age
+number
+The property owner's age
+
+householdSize
+number
+The household size
+
+income
+number
+The household income
+
+netWorth
+number
+The household net worth
+
+discretionaryIncome
+number
+The household discretionary income
+
+homeownerRenterCode
+string
+A string indicating whether the occupants are owners or renters
+
+homeownerRenter
+string
+A string indicating whether the occupants are owners or renters
+
+businessOwnerCode
+string
+A flag indicating whether the primary occupant is a business owner
+
+businessOwner
+string
+A flag indicating whether the primary occupant is a business owner
+
+genderCode
+string
+The primary occupant's gender
+
+gender
+string
+The primary occupant's gender
+
+childCount
+number
+The primary occupant's child count
+
+hasChildren
+boolean
+A flag indicating whether the primary occupant has children
+
+investments
+array[string]
+The primary occupant's investments
+
+maritalStatusCode
+string
+The primary occupant's marital status
+
+maritalStatus
+string
+The primary occupant's marital status
+
+millionaire
+boolean
+A flag indicating whether the primary occupant is a millionaire
+
+petOwner
+boolean
+A flag indicating whether the primary occupant is a pet owner
+
+recentlyDivorced
+boolean
+A flag indicating whether the primary occupant is recently divorced
+
+singleParent
+boolean
+A flag indicating whether the primary occupant is a single parent
+
+smoker
+boolean
+A flag indicating whether the primary occupant is a smoker
+
+religious
+boolean
+A flag indicating that the property owner is religious
+
+religiousAffiliationCode
+string
+A code for the primary occupant's religious affiliation
+
+religiousAffiliation
+string
+The primary occupant's religious affiliation
+
+individualEducationCode
+string
+The primary occupant's individual education code
+
+individualEducation
+string
+The primary occupant's individual education
+
+individualOccupation
+string
+The primary occupant's individual occupation
+
+individualOccupationCode
+string
+The primary occupant's individual occupation code
+
+recentlyMoved
+boolean
+The primary occupant recently moved
+
+recentlyMovedMonth
+number
+The primary occupant's recently moved month
+
+recentlyMovedYear
+number
+The primary occupant's recently moved year
+
+foreclosure
+object
+Information about the property foreclosure
+
+statusCode
+string
+A code indicating the preforeclosure status
+
+status
+string
+The preforeclosure status
+
+recordingDate
+string
+The preforeclosure recording date
+
+filingDate
+string
+The preforeclosure filing date
+
+caseNumber
+string
+The preforeclosure case number
+
+auctionDate
+string
+The scheduled auction date as reported on the notice of sale
+
+auctionTime
+string
+The scheduled auction time as reported on the notice of sale
+
+auctionLocation
+string
+The street address where the auction is scheduled to take place
+
+auctionCity
+string
+The city where the auction is scheduled to take place
+
+auctionMinimumBidAmount
+number
+The minimum bid amount at auction
+
+documentNumber
+string
+The recorder's document number
+
+bookNumber
+string
+The recorder's book number
+
+pageNumber
+string
+The recorder's page number
+
+documentTypeCode
+string
+A code indicating the foreclosure record type
+
+documentType
+string
+The foreclosure record type
+
+loanNumber
+string
+The loan number from the preforeclosure document
+
+defaultDate
+string
+The date mortgage default occurred
+
+unpaidBalance
+number
+The unpaid principal amount of the loan as stated on the foreclosure document
+
+pastDueAmount
+number
+The amount that is past due on the loan
+
+dueDate
+string
+The date the installment payment was originally due
+
+currentLenderName
+string
+The lender name involved in the foreclosure action
+
+auctionContactName
+string
+Contact name for the auction
+
+borrowerName
+string
+The name of the borrower
+
+releaseDate
+string
+The preforeclosure release date
+
+trusteeSaleNumber
+string
+A number assigned by the trustee for the purpose of tracking the foreclosure for the given property
+
+trusteeAddress
+string
+The mailing address of the trustee
+
+trusteeCareOfName
+string
+The name to send inquiries to the attention of the trustee
+
+trusteeName
+string
+The name of the trustee
+
+trusteePhone
+number
+The phone number of the trustee
+
+originalLoanAmount
+number
+The original loan amount
+
+flag
+string
+A flag indicating the preforeclosure status
+
+general
+object
+General property data
+
+vacant
+boolean
+A flag indicating whether the property is vacant
+
+mailingAddressVacant
+boolean
+Mailing address vacant
+
+standardizedLandUseCode
+string
+Standardized land use code
+
+carrierRoute
+string
+The property's mail carrier route
+
+censusTract
+string
+The census tract
+
+propertyTypeCategory
+string
+Property type category
+
+propertyTypeDetail
+string
+Property type detail
+
+congressionalDistrict
+string
+Congressional district
+
+timeZone
+string
+Time zone
+
+utcOffset
+number
+UTC offset
+
+daylightSavingsTime
+boolean
+Day light savings time
+
+primaryParcel
+boolean
+Primary parcel
+
+parcelCount
+number
+Parcel count
+
+schoolDistrict
+string
+The name of the property's school district
+
+ids
+object
+Property identifiers
+
+addressHash
+string
+The property's MD5 address hash
+
+apn
+string
+The assessor's parcel number
+
+oldApn
+string
+Old APN
+
+oldApnCodeDescription
+string
+Old APN code description
+
+taxId
+string
+The property's tax ID
+
+fipsCode
+string
+The county FIPS code
+
+personIds
+array[string]
+An array of person Id objects
+
+intel
+object
+Information about propensity scores
+
+distressScore
+number
+Property distress score
+
+lastSoldDate
+string
+Property last sold date
+
+lastSoldPrice
+number
+Property last sold price
+
+images
+object
+Property image
+
+imageCount
+number
+The property image count
+
+imageUrls
+array[string]
+The property image urls
+
+legal
+object
+Property legal data
+
+assessorsMapReference
+string
+The assessors Map Reference
+
+block
+string
+The block
+
+cityTownshipMunicipality
+string
+The city Township Municipality
+
+district
+string
+district
+
+landLot
+string
+The land Lot
+
+legalDescription
+string
+The legal Description
+
+legalUnit
+string
+The legal Unit
+
+lotCode
+string
+The lot Code
+
+lotNumber
+string
+The lot Number
+
+phaseNumber
+string
+The phase Number
+
+section
+string
+section
+
+sectionTownshipRangeMeridian
+string
+The section Township Range Meridian
+
+subdivisionName
+string
+The sub division Name
+
+tractNumber
+string
+The tract Number
+
+lot
+object
+Information about the property lot
+
+lotSizeAcres
+number
+The lot size in acres
+
+lotDepthFeet
+number
+The lot depth in feet
+
+lotFrontageFeet
+number
+The lot frontage in feet
+
+lotSizeSquareFeet
+number
+The lot size in square feet
+
+topographyCode
+string
+The property lot topography code
+
+topography
+string
+The property lot topography
+
+siteInfluenceCode
+string
+The property lot site influence code
+
+siteInfluence
+string
+The property lot site influence
+
+zoningCode
+string
+The property lot zonning code
+
+mortgageHistory
+array[object]
+Property mortgage history information
+
+borrowers
+array[string]
+The borrowers names
+
+saleDate
+string
+The property sale date
+
+recordingDate
+string
+The date the transaction was recorded by the county
+
+dueDate
+string
+The mortgage due date
+
+lenderName
+string
+The lender name
+
+loanTypeCode
+string
+A code indicating the type of loan
+
+loanType
+string
+A type of the loan
+
+loanAmount
+number
+The loan amount
+
+loanTermMonths
+number
+The loan term months
+
+interestRateTypeCode
+string
+Interest rate type code
+
+interestRateType
+string
+Interest rate type
+
+interestRate
+number
+The mortgage interest rate
+
+transactionType
+string
+Code that indicates the type of mortgage transaction
+
+mls
+object
+Property MLS data
+
+openLien
+object
+Informtion about the property liens
+
+allLoanTypes
+array[string]
+All loan types
+
+juniorLoanTypes
+array[string]
+Junior loan types
+
+totalOpenLienCount
+number
+The total open lien count
+
+totalOpenLienBalance
+number
+The total open lien balance
+
+firstLoanRecordingDate
+string
+The first loan recording date
+
+lastLoanRecordingDate
+string
+The last loan recording date
+
+mortgages
+array[object]
+The open lien mortgages
+
+lenderNameBeneficiary
+string
+Lender name beneficiary
+
+recordingDate
+string
+The date the transaction was recorded by the county
+
+loanTypeCode
+string
+A code indicating the type of loan. The value will be changed on October 1st 2023.
+
+loanType
+string
+A type of the loan. The value will be changed on October 1st 2023.
+
+financingTypeCode
+string
+A code indicating the financing type. The value will be changed on October 1st 2023.
+
+financingType
+string
+The financing type. The value will be changed on October 1st 2023.
+
+interestRate
+number
+The mortgage interest rate
+
+dueDate
+string
+The mortgage due date
+
+adjustableRateRider
+boolean
+A flag indicating that the mortgage has an adjustable rate rider
+
+adjustableRateIndexCode
+string
+The adjustable rate index code
+
+changeIndex
+number
+Identifies the margin (expressed as a percentage) that is added by the lender to the interest rate derived from the index.
+
+loanAmount
+number
+The loan amount
+
+lender
+string
+The name of the lender
+
+contractDate
+string
+The date of execution of the document
+
+rateChangeFrequencyCode
+string
+A code indicating the frequency the interest rates may change
+
+rateChangeFrequency
+string
+The frequency the interest rates may change
+
+interestRateNotGreaterThan
+number
+Maximum interest rate
+
+interestRateNotLessThan
+number
+Minimum interest rate
+
+maximumInterestRate
+number
+The maximum interest rate
+
+interestOnlyPeriod
+boolean
+Indicates that there is a period of time when the borrower can pay only the interest on the mortgage
+
+fixedStepConversionRateRider
+string
+A flag indicating that the mortgage has a conversion to a fixed rate rider
+
+firstChangeDateYearConversionRider
+string
+Year of the first interest rate change
+
+firstChangeDateMonthConversionRider
+string
+Month and day of the first interest rate change
+
+prepaymentRider
+boolean
+Flag indicating that the mortgage has a prepayment rider
+
+prepaymentTermPenaltyRider
+string
+The prepayment term penalty rider
+
+titleCompanyName
+string
+The title company name
+
+lenderName
+string
+The lender name
+
+loanTermMonths
+number
+The loan term months
+
+loanTermYears
+number
+The loan term years
+
+loanNumber
+string
+The loan number
+
+constructionLoan
+boolean
+A flag indicating that the loan is a construction loan
+
+cashPurchase
+boolean
+A flag indicating that the purchase is a cash purchase
+
+standaloneRefi
+boolean
+A flag indicating that the purchase is a standalone refi
+
+equityCreditLine
+string
+The equity credit line
+
+currentEstimatedBalance
+number
+The current estimated loan balance
+
+purposeOfLoan
+string
+The purpose of the loan
+
+purchaseMortgageIndicator
+string
+The purchase mortgage indicator
+
+currentEstimatedInterestRate
+number
+The current estimated interest rate. It is deprecated and will be removed on October 1st 2023.
+
+assignedLenderName
+string
+The assigned lender name
+
+assignmentDate
+string
+The date of the assignment
+
+numberOfAssignments
+number
+The number of assignments
+
+preforeclosureStatusCode
+string
+A code indicating the preforeclosure status
+
+preforeclosureStatus
+string
+The preforeclosure status
+
+preforeclosureRecordingDate
+string
+The preforeclosure recording date
+
+preforeclosureFilingDate
+string
+The preforeclosure filing date
+
+preforeclosureCaseTrusteeSaleNumber
+string
+The preforeclosure trustee sale number
+
+preforeclosureAuctionDate
+string
+The preforeclosure auction date
+
+ltv
+number
+The loan to value percent of the mortgage
+
+owner
+object
+Property owner data
+
+fullName
+string
+The property owner name(s)
+
+mailingAddress
+object
+The property mailing address
+
+names
+array[object]
+An array of property owner name objects
+
+ownerOccupied
+boolean
+A flag indicating that the property is occupied by the owner
+
+ownerStatusTypeCode
+string
+The owner status type code
+
+ownerStatusType
+string
+The owner status type
+
+lengthOfResidenceMonths
+number
+The number of months the owner has lived at the property
+
+ownershipStartDate
+string
+The date the property owners took ownership
+
+ownershipRightsCode
+string
+The type of ownership
+
+ownershipRights
+string
+The type of ownership
+
+emails
+array[string]
+An array of email addresses associated with the property owner(Returned only when options.skipTrace = true)
+
+phoneNumbers
+array[object]
+An array of phone numbers associated with the property owner (Returned only when options.skipTrace = true)
+
+number
+string
+The 10-digit phone number (e.g. 9876543210)
+
+carrier
+string
+The phone number's carrier (e.g. Verizon)
+
+type
+string
+The phone number type (e.g. Land Line or Mobile)
+
+tested
+boolean
+A flag indicating that a connection was made to the number for at least 6 seconds
+
+reachable
+boolean
+A flag indicating that the phone number was reached at least once in the last 3 months
+
+score
+string
+The phone number score. The higher the score the more likely it is that the property owner can be reached at that number. The number with highest score will be ranked as first amont the rest of the phone numbers. Not necessary that the highest ranked number will have score of 100.
+
+firstReportedDate
+string
+The date the phone number was first associated with the property owner
+
+lastReportedDate
+number
+The last known date the phone number was associated with the property owner
+
+dnc
+boolean
+A flag indicating whether the phone number is on the national Do Not Call (DNC) Registry.
+
+litigator
+boolean
+A flag indicating whether the person is known to be a TCPA litigator (Returned only when options.skipTrace = true)
+
+death
+Person Death (Returned only when options.skipTrace = true)
+
+deceased
+boolean
+A flag indicating whether the property owner is deceased
+
+dateOfDeath
+string
+The property owner's date of death
+
+dnc
+object
+Person DNC (Returned only when options.skipTrace = true)
+
+tcpa
+boolean
+A flag indicating whether the person is on the TCPA litigators list
+
+bankruptcy
+object
+Person Bankruptcy (Returned only when options.skipTrace = true)
+
+bankruptcy
+boolean
+A flag indicating whether there is a bankruptcy associated with the person
+
+filingDate
+string
+The bankruptcy filing date
+
+involuntaryLien
+object
+Person Bankruptcy (Returned only when options.skipTrace = true)
+
+judgement
+boolean
+A flag indicating whether there is at least one judgement against the property owner
+
+lien
+boolean
+A flag indicating whether there is at least one involuntary lien against the property owner
+
+propertyOwnerProfile
+object
+Information about the property owner profile
+
+averagePurchasePrice
+number
+Average purchase price of properties owned by the property owner
+
+averageYearBuilt
+number
+Average year built of properties owned by the property owner
+
+propertiesCount
+number
+The total number of properties owned by the property owner
+
+propertiesTotalEquity
+number
+The property owner's total equity in a properties owned
+
+propertiesTotalEstimatedValue
+number
+The total estimated value of all properties owned by the property owner
+
+mortgagesTotalBalance
+number
+The total balance of all of the property owner's mortgages
+
+mortgagesCount
+number
+The total number of open liens (mortgages) held by the property owner
+
+mortgagesAverageBalance
+number
+The average mortgage balance of all properties owned by the property owner
+
+involuntaryLiensCount
+number
+The total number of involuntary liens against the property owner
+
+totalPurchasePrice
+number
+The total purchase value of all properties owned by the property owner
+
+quickLists
+object
+Property quicklist data
+
+absenteeOwner
+boolean
+Property owner does not reside at the property.
+
+absenteeOwnerInState
+boolean
+Property owner does not reside at the property, and the property address and owner mailing address are in the same state.
+
+absenteeOwnerOutOfState
+boolean
+Property owner does not reside at the property, and the property address and owner mailing address are in different states.
+
+activeListing
+boolean
+Property has an active MLS listing.
+
+activeAuction
+boolean
+Property has an auction date greater than the current date.
+
+cashBuyer
+boolean
+Property was purchased with cash.
+
+corporateOwned
+boolean
+Property is owned by a corporate entity (i.e., not an individual).
+
+expiredListing
+boolean
+Property has an expired MLS listing.
+
+freeAndClear
+boolean
+Property is free of any mortgage.
+
+fixAndFlip
+boolean
+Property has been bought and sold in the last 12 months.
+
+highEquity
+boolean
+Property owner has more than 20% equity in the property.
+
+inherited
+boolean
+Property owner has inherited the property.
+
+listedBelowMarketPrice
+boolean
+Property is listed below market price.
+
+lowEquity
+boolean
+Property owner has less than 20% equity in the property.
+
+mailingAddressVacant
+boolean
+Property mailing address is vacant.
+
+noticeOfDefault
+boolean
+Property has a default of a loan by the borrower of the mortgage.
+
+onMarket
+boolean
+Property is available for sale.
+
+outOfStateOwner
+boolean
+Property owner resides out of state.
+
+ownerOccupied
+boolean
+Property is occupied by the owner.
+
+pendingListing
+boolean
+Property has a pending MLS listing.
+
+preforeclosure
+boolean
+Property is in pre-foreclosure.
+
+recentlySold
+boolean
+Property was sold in the last 12 months.
+
+samePropertyAndMailingAddress
+boolean
+Property address is the same as the mailing address.
+
+taxDefault
+boolean
+Property is in tax default and the first tax default was at least three years ago.
+
+tiredLandlord
+boolean
+Property is a single family residence owned for at least 10 years, and built more than 30 years ago.
+
+unknownEquity
+boolean
+Property equity is unknown.
+
+vacant
+boolean
+USPS has flagged the property as vacant.
+
+vacantLot
+boolean
+Property is likely to be a vacant lot
+
+hasHoaFees
+boolean
+Property has homeowner association fees.
+
+canceledListing
+boolean
+Property has a canceled MLS listing.
+
+noticeOfSale
+boolean
+Property has received a notice of sale.
+
+noticeOfLisPendens
+boolean
+Property has a pending lawsuit.
+
+hasHoa
+boolean
+Property is part of a homeowner association.
+
+forSaleByOwner
+boolean
+Property is listed for sale by the owner.
+
+failedListing
+boolean
+The MLS listing was either cancelled or expired and not sold.
+
+sale
+Information about the sale of the property
+
+lastTransfer
+object
+Information about the sale of the property
+
+bookNumber
+number
+Book number
+
+pageNumber
+number
+Page number
+
+documentNumber
+number or string
+Document number
+
+documentType
+string
+Document type
+
+documentTypeCode
+string
+Code for the type of document used to record the sale or transfer of the property.
+
+price
+number
+The property's sale price
+
+priceCodeDescription
+string
+Price code description
+
+priceCode
+string
+Price code
+
+distressedSaleFlag
+boolean
+Distressed sale flag
+
+mortgages
+array[object]
+The mortgages associated with the sale
+
+pageNumber
+string or null
+The recorder's page number
+
+bookNumber
+string or null
+The recorder's book number
+
+recordingDate
+string or null
+The date the transaction was recorded by the county
+
+loanAmount
+number
+The loan amount
+
+loanTypeCode
+string or null
+A code indicating the loan type
+
+loanType
+string or null
+The loan type
+
+financingTypeCode
+string or null
+A code indicating the financing type
+
+financingType
+string or null
+The financing type
+
+interestRate
+number
+The interest rate
+
+dueDate
+string or null
+The date the mortgage is due
+
+lenderName
+string
+The name of the lender
+
+loanTerm
+string
+The loan term
+
+lastSale
+object
+Information about the sale of the property
+
+bookNumber
+number
+Book number
+
+pageNumber
+number
+Page number
+
+documentNumber
+number or string
+Document number
+
+documentType
+string
+Document type
+
+documentTypeCode
+string
+Code for the type of document used to record the sale or transfer of the property.
+
+price
+number
+The property's sale price
+
+priceCodeDescription
+string
+Price code description
+
+priceCode
+string
+Price code
+
+distressedSaleFlag
+boolean
+Distressed sale flag
+
+mortgages
+array[object]
+The mortgages associated with the sale
+
+pageNumber
+string or null
+The recorder's page number
+
+bookNumber
+string or null
+The recorder's book number
+
+recordingDate
+string or null
+The date the transaction was recorded by the county
+
+loanAmount
+number
+The loan amount
+
+loanTypeCode
+string or null
+A code indicating the loan type
+
+loanType
+string or null
+The loan type
+
+financingTypeCode
+string or null
+A code indicating the financing type
+
+financingType
+string or null
+The financing type
+
+interestRate
+number
+The interest rate
+
+dueDate
+string or null
+The date the mortgage is due
+
+lenderName
+string
+The name of the lender
+
+loanTerm
+string
+The loan term
+
+flipLength
+number
+Details about the property's flip length
+
+flipLengthCategory
+number
+Details about the property's flip length category
+
+flipProfit
+number
+Details about the property's flip profit
+
+priorTransfer
+object
+Information about the sale of the property
+
+bookNumber
+number
+Book number
+
+pageNumber
+number
+Page number
+
+documentNumber
+number or string
+Document number
+
+documentType
+string
+Document type
+
+documentTypeCode
+string
+Code for the type of document used to record the sale or transfer of the property.
+
+price
+number
+The property's sale price
+
+priceCodeDescription
+string
+Price code description
+
+priceCode
+string
+Price code
+
+distressedSaleFlag
+boolean
+Distressed sale flag
+
+mortgages
+array[object]
+The mortgages associated with the sale
+
+pageNumber
+string or null
+The recorder's page number
+
+bookNumber
+string or null
+The recorder's book number
+
+recordingDate
+string or null
+The date the transaction was recorded by the county
+
+loanAmount
+number
+The loan amount
+
+loanTypeCode
+string or null
+A code indicating the loan type
+
+loanType
+string or null
+The loan type
+
+financingTypeCode
+string or null
+A code indicating the financing type
+
+financingType
+string or null
+The financing type
+
+interestRate
+number
+The interest rate
+
+dueDate
+string or null
+The date the mortgage is due
+
+lenderName
+string
+The name of the lender
+
+loanTerm
+string
+The loan term
+
+priorSale
+object
+Information about the sale of the property
+
+bookNumber
+number
+Book number
+
+pageNumber
+number
+Page number
+
+documentNumber
+number or string
+Document number
+
+documentType
+string
+Document type
+
+documentTypeCode
+string
+Code for the type of document used to record the sale or transfer of the property.
+
+price
+number
+The property's sale price
+
+priceCodeDescription
+string
+Price code description
+
+priceCode
+string
+Price code
+
+distressedSaleFlag
+boolean
+Distressed sale flag
+
+mortgages
+array[object]
+The mortgages associated with the sale
+
+pageNumber
+string or null
+The recorder's page number
+
+bookNumber
+string or null
+The recorder's book number
+
+recordingDate
+string or null
+The date the transaction was recorded by the county
+
+loanAmount
+number
+The loan amount
+
+loanTypeCode
+string or null
+A code indicating the loan type
+
+loanType
+string or null
+The loan type
+
+financingTypeCode
+string or null
+A code indicating the financing type
+
+financingType
+string or null
+The financing type
+
+interestRate
+number
+The interest rate
+
+dueDate
+string or null
+The date the mortgage is due
+
+lenderName
+string
+The name of the lender
+
+loanTerm
+string
+The loan term
+
+tax
+object
+Property tax data
+
+taxAmount
+number
+Tax amount
+
+taxYear
+number
+Tax year
+
+taxDelinquentYear
+number
+Tax delinquent year
+
+taxRateCodeArea
+string
+Tax rate code area
+
+schoolTaxDistrictCodes
+array
+School tax districts
+
+taxExemptions
+string
+Tax exemption codes
+
+valuation
+object
+Information about the property value and equity
+
+estimatedValue
+number
+The property's AVM value
+
+priceRangeMin
+number
+Price range minimum
+
+priceRangeMax
+number
+Price range maximum
+
+standardDeviation
+number
+AVM value standard deviation
+
+confidenceScore
+number
+AVM value confidence score
+
+asOfDate
+string
+AVM as of date
+
+equityCurrentEstimatedBalance
+number
+Calculated total equity dollars based upon estimated amortized balances for all open liens and AVM Value
+
+ltv
+number
+The loan to value ratio expressed as a percentage
+
+equityPercent
+number
+The estimated equity percent (100 minus LTV)
+
+meta
+object
+propertyDateModified
+string
+Date when the property modified
+
+requestId
+string
+The account request ID of the request. Used to retry or debug the request.
+
+meta
+object
+Metadata describing the response
+
+apiVersion
+string
+The version of the API
+
+performance
+object
+Performance metadata
+
+startTime
+string
+The date and time when request processing started
+
+endTime
+string
+The date and time when request processing ended
+
+totalRequestTime
+number
+The total time of the request
+
+results
+object
+Results metadata
+
+requestCount
+number
+The number of requested properties
+
+matchCount
+number
+The number of matched properties
+
+noMatchCount
+number
+The number of unmatched properties
+
+errorCount
+number
+The number of requests that couldn't be processed
+
+requestId
+string
+The account request ID of the request. Used to retry or debug the request.

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form action="" method="post" novalidate>
+        <p>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required>
+        </p>
+        <p>
+            <label for="password">Password</label><br>
+            <input type="password" id="password" name="password" required>
+        </p>
+        <p><input type="checkbox" id="remember_me" name="remember_me"> <label for="remember_me">Remember Me</label></p>
+        <p><input type="submit" value="Sign In"></p>
+    </form>
+    <p>New User? <a href="{{ url_for('auth.signup') }}">Click to Sign Up!</a></p>
+    <p>Forgot Password? <a href="{{ url_for('auth.forgot_password') }}">Click here</a></p>
+{% endblock %}

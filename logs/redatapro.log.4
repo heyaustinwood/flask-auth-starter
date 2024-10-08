@@ -1,0 +1,105 @@
+2024-10-01 10:03:59,180 ERROR: Exception on / [POST] [in /Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 284, in decorated_view
+    elif not current_user.is_authenticated:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 526, in _get_current_object
+    return get_name(local())
+                    ^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+    raise Exception(
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2024-10-01 10:05:11,756 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:05:13,734 ERROR: Exception on / [POST] [in /Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 284, in decorated_view
+    elif not current_user.is_authenticated:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 526, in _get_current_object
+    return get_name(local())
+                    ^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+    raise Exception(
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2024-10-01 10:05:14,767 ERROR: Exception on / [POST] [in /Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 284, in decorated_view
+    elif not current_user.is_authenticated:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/werkzeug/local.py", line 526, in _get_current_object
+    return get_name(local())
+                    ^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/Users/austinheywood/source/api/venv/lib/python3.11/site-packages/flask_login/login_manager.py", line 347, in _load_user
+    raise Exception(
+Exception: Missing user_loader or request_loader. Refer to http://flask-login.readthedocs.io/#how-it-works for more info.
+2024-10-01 10:05:51,426 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:12:21,705 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:12:31,311 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:13:29,407 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:23:44,656 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:23:52,671 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:23:55,619 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:31:33,327 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:33:04,434 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:34:49,759 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]
+2024-10-01 10:39:19,944 INFO: RedataPro startup [in /Users/austinheywood/source/api/app/__init__.py:58]

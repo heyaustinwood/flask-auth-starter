@@ -1,0 +1,108 @@
+GET
+Estimated property value
+https://api.housecanary.com/v3/property/estimate?slug=123-Main-St-Apt-1-San-Francisco&address=123 Main St&unit=Apt 1&city=San Francisco&state=CA&zipcode=94105
+Our Property Value Estimation API gives a rough idea of a property's current worth within a set range of accuracy. It uses a reliable Automated Valuation Model and a special rounding method to ensure fairness and security. This method balances speed and accuracy, providing useful estimates for different property types while aiming to be as unbiased as possible
+
+Source: HouseCanary.
+
+Updated: 15 minutes.
+
+Request Query Params
+View More
+Property	Type	Description	Example
+slug	string	Unique readable string identifier for the property	123-Main-St-Apt-1-San-Francisco
+address	string	Either a single URL-safe string ("slug") identifying the address, or just a building number, street name, and optionally unit number (if not a slug the payload must also include other identifiers)	123 Main St
+unit	string	Unit number for the property, if needed and not already specified in the address string	Apt 1
+city	string	City in which the property is located	San Francisco
+state	string	2-letter acronym of the US state in which the property is located	CA
+zipcode	string	5-digit US zipcode in which the property is located	94105
+Response
+View More
+Field	Type	Description	Example	Enum Values
+estimate	integer	Estimated value		
+subject_address	object			
+subject_address.address_full	string	Full address string	123 Main St San Francisco CA 94132	
+subject_address.address_id	integer	HouseCanary address slug	123-Main-St-Apt-1-San-Francisco	
+subject_address.slug	string	HouseCanary address identifier	123-Main-St-Apt-1-San-Francisco	
+subject_address.block_id	string	15-digit US census block ID	060750313013007	
+subject_address.city	string	City where property is located	San Francisco	
+subject_address.fips	string	5-digit US census county ID	06075	
+subject_address.geo_precision	string	A string describing available geo precision	rooftop	[rooftop, parcel, zip9, zip5, unknown]
+subject_address.latitude	number	Latitude value, in degrees	37.789	
+subject_address.longitude	number	Longitude value, in degrees	-122.401	
+subject_address.state	string	2-character state abbreviation	CA	
+subject_address.unit	string	Unit within the building, if any	Apt 1	
+subject_address.address	string	Street address	123 Main St	
+subject_address.zipcode	string	5-character US zipcode	94132	
+subject_address.zipcode_plus4	string	4-character zipcode extension	1234	
+subject_address.msa	string	5-digit US census MSA ID	41860	
+AUTHORIZATION
+Basic Auth
+This request is using Basic Auth from collectionHouseCanary Analytics And Portfolio Monitoring APIs
+HEADERS
+Accept
+application/json
+
+PARAMS
+slug
+123-Main-St-Apt-1-San-Francisco
+
+Unique readable string identifier for the property
+
+address
+123 Main St
+
+(Required) Either a single URL-safe string ("slug") identifying the address, or just a building number, street name, and optionally unit number (if not a slug the payload must also include other identifiers)
+
+unit
+Apt 1
+
+Unit number for the property, if needed and not already specified in the address string
+
+city
+San Francisco
+
+City in which the property is located
+
+state
+CA
+
+2-letter acronym of the US state in which the property is located
+
+zipcode
+94105
+
+5-digit US zipcode in which the property is located
+
+
+
+#Example Request
+
+curl --location 'https://api.housecanary.com/v3/property/estimate?slug=123-Main-St-Apt-1-San-Francisco&address=123%20Main%20St&unit=Apt%201&city=San%20Francisco&state=CA&zipcode=94105' \
+--header 'Accept: application/json' \
+--header 'Authorization: Basic <credentials>'
+
+
+
+#Example Response
+
+{
+  "estimate": -82858825,
+  "subject_address": {
+    "address_full": "123 Main St San Francisco CA 94132",
+    "address_id": 75479945,
+    "slug": "123-Main-St-Apt-1-San-Francisco",
+    "block_id": "060750313013007",
+    "city": "San Francisco",
+    "fips": "06075",
+    "geo_precision": "rooftop",
+    "latitude": 37.789,
+    "longitude": -122.401,
+    "state": "CA",
+    "unit": "Apt 1",
+    "address": "123 Main St",
+    "zipcode": "94132",
+    "zipcode_plus4": "1234",
+    "msa": "41860"
+  }
+}

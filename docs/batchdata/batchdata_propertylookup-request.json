@@ -1,0 +1,27 @@
+// single property using address for lookup
+
+{
+  "requests": [
+    {
+      "address": {
+        "street": "101 Portsmouth Cir",
+        "city": "Victoria",
+        "state": "TX",
+        "zip": "77904-2501"
+      }
+    }
+  ]
+}
+
+// single property using STATE + APN + FIPS for lookup
+{
+  "requests": [
+    {
+      "address": {
+        "state": "TX"
+      },
+      "apn": "35392-002-00100",
+      "countyFipsCode": "48469"
+    }
+  ]
+}
