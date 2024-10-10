@@ -1,101 +1,70 @@
-2024-10-08 13:33:14,261 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:33:14,269 ERROR: Exception on /invite [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 31, in decorated_function
-    return f(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 132, in invite_user
-    send_invitation_email(email, current_user, g.current_organization, token)
-  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 36, in send_invitation_email
-    text_body = render_template(template_path,
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
-    template = app.jinja_env.get_or_select_template(template_name_or_list)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1013, in get_template
-    return self._load_template(name, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 972, in _load_template
-    template = self.loader.load(self, name, self.make_globals(globals))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
-    source, filename, uptodate = self.get_source(environment, name)
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
-    return self._get_source_fast(environment, template)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: templates/email/org_invite.txt
-2024-10-08 13:33:56,666 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:34:12,062 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:34:13,403 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:34:14,012 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:34:14,026 ERROR: Exception on /invite [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
-Traceback (most recent call last):
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 31, in decorated_function
-    return f(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 132, in invite_user
-    send_invitation_email(email, current_user, g.current_organization, token)
-  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 36, in send_invitation_email
-    text_body = render_template(template_path,
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/austinheywood/source/flask-auth-starter/app/templates/email/org_invite.txt", line 7, in top-level template code
-    {{ url_for('auth.accept_invitation', token=token, _external=True) }}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1084, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1073, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'auth.accept_invitation' with values ['token']. Did you mean 'auth.create_organization' instead?
-2024-10-08 13:34:37,262 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:34:42,842 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:34:45,698 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
+2024-10-09 00:05:13,445 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:15,737 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:15,813 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:16,563 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:18,905 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:18,905 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:05:19,836 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:19,836 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:05:32,814 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:34,167 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:34,927 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:37,821 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:40,318 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:44,145 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:46,925 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:05:49,304 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:03,017 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:03,018 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:06:06,224 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:06,224 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:06:13,851 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:14,737 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:17,971 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:19,411 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:21,490 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:22,343 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:37,496 DEBUG: User 3 org role: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:40,010 DEBUG: User 3 org role: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:43,224 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:44,544 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:06:45,458 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:26,395 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:08:28,729 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:30,224 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:30,242 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:31,710 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:33,317 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:38,463 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:40,085 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:41,412 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:08:45,217 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:04,026 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:04,027 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:09:20,479 DEBUG: User 3 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:20,479 DEBUG: Permission denied for user 3. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:27]
+2024-10-09 00:09:38,038 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:53,769 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:54,606 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:57,660 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:09:59,196 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:10:42,097 DEBUG: User 3 org role: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:10:47,445 DEBUG: User 3 org role: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:11:19,333 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:11:20,323 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:11:23,016 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:13:48,433 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:13:50,618 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:03,661 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:05,043 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:08,406 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:08,422 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:14,227 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:15,733 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:18,155 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:14:20,856 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:16:54,665 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:16:57,916 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:16:59,698 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]
+2024-10-09 00:19:09,633 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:19:12,907 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]

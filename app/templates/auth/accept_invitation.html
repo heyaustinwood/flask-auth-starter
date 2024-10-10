@@ -3,6 +3,12 @@
 {% block content %}
     <h1>Accept Invitation</h1>
     <form action="" method="post">
+        {% if not current_user.is_authenticated %}
+        <p>
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" value="{{ email }}" required>
+        </p>
+        {% endif %}
         <p>
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required>

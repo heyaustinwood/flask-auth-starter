@@ -1,17 +1,4 @@
-2024-10-08 13:47:08,620 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:10,887 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:12,800 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:13,903 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:18,605 DEBUG: User 2 org role: None [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:18,606 DEBUG: Permission denied for user 2. Required: member [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:26]
-2024-10-08 13:47:28,233 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:28,250 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:31,221 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:35,055 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:47:35,066 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:50:05,025 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:50:07,727 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:50:07,728 ERROR: Exception on /invite [GET] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+2024-10-09 08:55:38,739 ERROR: Exception on /forgot-password [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -25,39 +12,10 @@ Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 29, in decorated_function
-    return f(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 161, in invite_user
-    return render_template('auth/invite.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
-    template = app.jinja_env.get_or_select_template(template_name_or_list)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1013, in get_template
-    return self._load_template(name, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 972, in _load_template
-    template = self.loader.load(self, name, self.make_globals(globals))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
-    source, filename, uptodate = self.get_source(environment, name)
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
-    return self._get_source_fast(environment, template)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: auth/invite.html
-2024-10-08 13:50:11,457 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:50:13,168 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:50:13,169 ERROR: Exception on /invite [GET] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 204, in forgot_password
+    send_password_reset_email(user.email, reset_url)
+TypeError: send_password_reset_email() takes 1 positional argument but 2 were given
+2024-10-09 08:55:43,044 ERROR: Exception on /forgot-password [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -71,41 +29,85 @@ Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 29, in decorated_function
-    return f(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 161, in invite_user
-    return render_template('auth/invite.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
-    template = app.jinja_env.get_or_select_template(template_name_or_list)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1013, in get_template
-    return self._load_template(name, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 972, in _load_template
-    template = self.loader.load(self, name, self.make_globals(globals))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
-    source, filename, uptodate = self.get_source(environment, name)
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
-    return self._get_source_fast(environment, template)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: auth/invite.html
-2024-10-08 13:51:25,813 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:51:27,671 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:51:33,112 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:51:33,136 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:54:35,669 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:54:37,198 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:54:38,941 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
-2024-10-08 13:54:38,959 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:24]
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 204, in forgot_password
+    send_password_reset_email(user.email, reset_url)
+TypeError: send_password_reset_email() takes 1 positional argument but 2 were given
+2024-10-09 08:57:52,391 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:57:57,343 ERROR: Exception on /forgot-password [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 204, in forgot_password
+    send_password_reset_email(user.email, reset_url)
+  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 24, in send_password_reset_email
+    text_body = render_template('email/auth_reset-pass.txt',
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/austinheywood/source/flask-auth-starter/app/templates/email/auth_reset-pass.txt", line 1, in top-level template code
+    Dear {{ user.email }},
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 487, in getattr
+    return getattr(obj, attribute)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'user' is undefined
+2024-10-09 08:58:41,060 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:58:47,684 ERROR: Exception on /forgot-password [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 204, in forgot_password
+    send_password_reset_email(user.email, reset_url)
+  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 23, in send_password_reset_email
+    recipients = [user.email]
+                  ^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'email'
+2024-10-09 09:02:33,998 ERROR: Exception on /forgot-password [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+Traceback (most recent call last):
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 204, in forgot_password
+    send_password_reset_email(user, reset_url)
+  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 23, in send_password_reset_email
+    recipients = [user.email]
+                  ^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'email'
+2024-10-09 09:06:57,214 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 09:09:41,830 DEBUG: User 1 org role: admin [in /Users/austinheywood/source/flask-auth-starter/app/auth/routes.py:25]

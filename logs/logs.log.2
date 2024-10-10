@@ -1,4 +1,4 @@
-2024-10-08 13:34:45,716 ERROR: Exception on /invite [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+2024-10-08 13:56:47,160 ERROR: Exception on /invite [POST] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -15,39 +15,34 @@ Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
     return current_app.ensure_sync(func)(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 31, in decorated_function
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 29, in decorated_function
     return f(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 132, in invite_user
-    send_invitation_email(email, current_user, g.current_organization, token)
-  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 36, in send_invitation_email
-    text_body = render_template(template_path,
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/Users/austinheywood/source/flask-auth-starter/app/templates/email/org_invite.txt", line 7, in top-level template code
-    {{ url_for('auth.accept_invitation', token=token, _external=True) }}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1084, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1073, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'auth.accept_invitation' with values ['token']. Did you mean 'auth.create_organization' instead?
-2024-10-08 13:37:43,039 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
-2024-10-08 13:37:43,039 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:38:05,443 ERROR: Exception on /accept_invitation/esQA8g1iC8iRP3cPSsQcKO69m_mt8G5dwrfBbSlMHj0 [GET] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 144, in invite_user
+    send_invitation_email(email, current_user, g.current_organization)
+  File "/Users/austinheywood/source/flask-auth-starter/app/email.py", line 39, in send_invitation_email
+    user=User.query.filter_by(email=email).first(),
+         ^^^^
+NameError: name 'User' is not defined
+2024-10-08 13:57:19,476 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-08 13:57:19,476 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:02:07,282 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:02:07,282 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:02:14,012 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:02:14,012 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:03:09,957 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:03:09,958 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:03:16,130 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:03:16,130 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:08:26,395 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:08:26,395 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:13:48,433 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:13:48,433 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:16:57,916 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:16:57,916 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:19:09,633 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:19:09,633 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 00:19:12,922 ERROR: Exception on /org/members [GET] [in /Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py:838]
 Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1473, in wsgi_app
     response = self.full_dispatch_request()
@@ -61,31 +56,51 @@ Traceback (most recent call last):
   File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 865, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 248, in accept_invitation
-    return render_template('auth/accept_invitation.html', email=invitation.email)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
-    template = app.jinja_env.get_or_select_template(template_name_or_list)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
-    return self.get_template(template_name_or_list, parent, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1013, in get_template
-    return self._load_template(name, globals)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 972, in _load_template
-    template = self.loader.load(self, name, self.make_globals(globals))
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
-    source, filename, uptodate = self.get_source(environment, name)
-                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
-    return self._get_source_fast(environment, template)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
-    raise TemplateNotFound(template)
-jinja2.exceptions.TemplateNotFound: auth/accept_invitation.html
-2024-10-08 13:44:46,361 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
-2024-10-08 13:44:46,362 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
-2024-10-08 13:50:05,025 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
-2024-10-08 13:50:05,025 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/auth/routes.py", line 30, in decorated_function
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/org/routes.py", line 21, in members
+    return render_template('org/members.html', members=members, invitations=invitations)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/austinheywood/source/flask-auth-starter/app/templates/org/members.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/Users/austinheywood/source/flask-auth-starter/app/templates/base.html", line 39, in top-level template code
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/app/templates/org/members.html", line 52, in block 'content'
+    <form method="post" action="{{ url_for('org.revoke_invitation', invitation_id=invitation.id) }}">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1084, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/flask/app.py", line 1073, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/austinheywood/source/flask-auth-starter/venv/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'org.revoke_invitation' with values ['invitation_id']. Did you mean 'auth.accept_invitation' instead?
+2024-10-09 00:20:29,137 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 00:20:29,138 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:51:16,737 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 08:51:16,738 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:51:22,568 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 08:51:22,568 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:52:14,408 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 08:52:14,408 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:52:21,404 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 08:52:21,404 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]
+2024-10-09 08:54:15,578 INFO: Flask Auth Starter [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:49]
+2024-10-09 08:54:15,578 INFO: Flask Auth Starter startup [in /Users/austinheywood/source/flask-auth-starter/app/__init__.py:60]

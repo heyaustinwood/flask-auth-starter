@@ -6,6 +6,7 @@ import secrets
 from time import time
 import jwt
 from flask import current_app
+from sqlalchemy import UniqueConstraint
 
 class Organization(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -57,8 +58,11 @@ class Invitation(db.Model):
     inviter_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     token = db.Column(db.String(64), unique=True, index=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(20), default='pending')  # New status column
     organization = db.relationship('Organization')
     inviter = db.relationship('User')
+
+    __table_args__ = (UniqueConstraint('email', 'organization_id', name='_email_organization_uc'),)
 
     @staticmethod
     def generate_token():

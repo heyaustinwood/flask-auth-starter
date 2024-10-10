@@ -17,14 +17,13 @@ def send_email(subject, sender, recipients, text_body):
     print(f"Email body: {msg.body}")
     mail.send(msg)
 
-def send_password_reset_email(user):
-    token = user.get_reset_password_token()
+def send_password_reset_email(email, reset_url):
     subject = 'Reset Your Password'
     sender = current_app.config['MAIL_DEFAULT_SENDER']
-    recipients = [user.email]
+    recipients = [email]
     text_body = render_template('email/auth_reset-pass.txt',
-                                user=user,
-                                token=token)
+                                email=email,
+                                reset_url=reset_url)
     send_email(subject, sender, recipients, text_body)
 
 def send_invitation_email(email, inviter, organization, token=None):

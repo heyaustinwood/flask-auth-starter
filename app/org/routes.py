@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, flash, request, g
 from flask_login import login_required, current_user
 from app import db
 from app.org import bp
-from app.models import Organization, UserOrganization, User
+from app.models import Organization, UserOrganization, User, Invitation
 from app.auth.routes import require_org_permission
 from sqlalchemy import func
 
@@ -12,12 +12,14 @@ from sqlalchemy import func
 def dashboard():
     return render_template('org/dashboard.html')
 
-@bp.route('/members')
+@bp.route('/members', methods=['GET'])
 @login_required
 @require_org_permission('admin')
 def members():
     members = UserOrganization.query.filter_by(organization_id=g.current_organization.id).all()
-    return render_template('org/members.html', members=members)
+    # Filter invitations to only include those with status 'pending'
+    invitations = Invitation.query.filter_by(organization_id=g.current_organization.id, status='pending').all()
+    return render_template('org/members.html', members=members, invitations=invitations)
 
 @bp.route('/remove-member/<int:user_id>', methods=['POST'])
 @login_required
@@ -47,4 +49,17 @@ def change_role(user_id):
             flash('Invalid role.')
     else:
         flash('Member not found in the organization.')
+    return redirect(url_for('org.members'))
+
+@bp.route('/revoke-invitation/<int:invitation_id>', methods=['POST'])
+@login_required
+@require_org_permission('admin')
+def revoke_invitation(invitation_id):
+    invitation = Invitation.query.filter_by(id=invitation_id, organization_id=g.current_organization.id).first()
+    if invitation:
+        invitation.status = 'revoked'  # Update status instead of deleting
+        db.session.commit()
+        flash('Invitation revoked successfully.', 'success')
+    else:
+        flash('Invitation not found.', 'error')
     return redirect(url_for('org.members'))
