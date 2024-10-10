@@ -16,16 +16,13 @@ def require_org_permission(permission):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if not g.current_organization:
-                current_app.logger.debug(f"No current organization for user {current_user.id}")
                 flash('Please select an organization.')
                 return redirect(url_for('auth.select_organization'))
             user_org = UserOrganization.query.filter_by(
                 user_id=current_user.id,
                 organization_id=g.current_organization.id
             ).first()
-            current_app.logger.debug(f"User {current_user.id} org role: {user_org.role if user_org else 'None'}")
             if not user_org or (user_org.role != permission and user_org.role != 'admin'):
-                current_app.logger.debug(f"Permission denied for user {current_user.id}. Required: {permission}")
                 flash('You do not have permission to access this resource.')
                 return redirect(url_for('index'))
             return f(*args, **kwargs)
