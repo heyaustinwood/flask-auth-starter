@@ -153,29 +153,29 @@ def invite_user():
         # Check for existing invitation
         existing_invitation = Invitation.query.filter_by(
             email=email, 
-            organization_id=g.current_organization.id
+            organization_id=g.current_organization.id,
+            status='pending'
         ).first()
 
         if existing_invitation:
-            # Revoke the existing invitation
-            db.session.delete(existing_invitation)
-            db.session.commit()
-            flash('Existing invitation has been revoked and a new one will be sent.', 'info')
-
-        # Create a new invitation
-        token = Invitation.generate_token()
-        invitation = Invitation(email=email, 
-                                organization_id=g.current_organization.id,
-                                inviter_id=current_user.id,
-                                token=token)
-        try:
-            db.session.add(invitation)
-            db.session.commit()
-            send_invitation_email(email, current_user, g.current_organization, token)
-            flash('Invitation sent successfully.', 'success')
-        except IntegrityError:
-            db.session.rollback()
-            flash('An error occurred while sending the invitation. Please try again.', 'error')
+            # Resend the existing invitation
+            send_invitation_email(email, current_user, g.current_organization, existing_invitation.token)
+            flash('User already invited. Invitation resent successfully.', 'success')
+        else:
+            # Create a new invitation
+            token = Invitation.generate_token()
+            invitation = Invitation(email=email, 
+                                    organization_id=g.current_organization.id,
+                                    inviter_id=current_user.id,
+                                    token=token)
+            try:
+                db.session.add(invitation)
+                db.session.commit()
+                send_invitation_email(email, current_user, g.current_organization, token)
+                flash('Invitation sent successfully.', 'success')
+            except IntegrityError:
+                db.session.rollback()
+                flash('An error occurred while sending the invitation. Please try again.', 'error')
         
         return redirect(url_for('org.members'))
 
