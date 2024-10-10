@@ -4,15 +4,21 @@
     <h1>Accept Invitation</h1>
     <form action="" method="post">
         {% if not current_user.is_authenticated %}
-        <p>
-            <label for="email">Email</label><br>
+        <div class="form-group">
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" value="{{ email }}" required>
-        </p>
+        </div>
         {% endif %}
-        <p>
-            <label for="password">Password</label><br>
+        <div class="form-group">
+            <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-        </p>
-        <p><input type="submit" value="Accept Invitation"></p>
+        </div>
+        <div class="form-group">
+            <label for="password_confirm">Confirm Password</label>
+            <input type="password" id="password_confirm" name="password_confirm" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Accept Invitation">
+        </div>
     </form>
 {% endblock %}

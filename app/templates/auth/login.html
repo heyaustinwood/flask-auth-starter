@@ -2,17 +2,22 @@
 
 {% block content %}
     <h1>Login</h1>
-    <form action="" method="post" novalidate>
-        <p>
-            <label for="email">Email</label><br>
+    <form method="post" novalidate>
+        <div class="form-group">
+            <label for="email">Email</label>
             <input type="email" id="email" name="email" required>
-        </p>
-        <p>
-            <label for="password">Password</label><br>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-        </p>
-        <p><input type="checkbox" id="remember_me" name="remember_me"> <label for="remember_me">Remember Me</label></p>
-        <p><input type="submit" value="Sign In"></p>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" id="remember_me" name="remember_me">
+            <label for="remember_me">Remember Me</label>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Sign In">
+        </div>
     </form>
     <p>New User? <a href="{{ url_for('auth.signup') }}">Click to Sign Up!</a></p>
     <p>Forgot Password? <a href="{{ url_for('auth.forgot_password') }}">Click here</a></p>

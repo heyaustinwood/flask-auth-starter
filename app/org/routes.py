@@ -5,6 +5,7 @@ from app.org import bp
 from app.models import Organization, UserOrganization, User, Invitation
 from app.auth.routes import require_org_permission
 from sqlalchemy import func
+from app.email import send_invitation_email
 
 @bp.before_request
 def before_request():
@@ -113,4 +114,16 @@ def revoke_invitation(invitation_id):
         flash('Invitation revoked successfully.', 'success')
     else:
         flash('Invitation not found.', 'error')
+    return redirect(url_for('org.members'))
+
+@bp.route('/resend-invitation/<int:invitation_id>', methods=['POST'])
+@login_required
+@require_org_permission('admin')
+def resend_invitation(invitation_id):
+    invitation = Invitation.query.filter_by(id=invitation_id, organization_id=g.current_organization.id, status='pending').first()
+    if invitation:
+        send_invitation_email(invitation.email, current_user, g.current_organization, invitation.token)
+        flash('Invitation resent successfully.', 'success')
+    else:
+        flash('Invitation not found or already accepted.', 'error')
     return redirect(url_for('org.members'))

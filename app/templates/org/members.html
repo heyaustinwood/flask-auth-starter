@@ -52,6 +52,9 @@
                         <form method="post" action="{{ url_for('org.revoke_invitation', invitation_id=invitation.id) }}">
                             <input type="submit" value="Revoke Invitation">
                         </form>
+                        <form method="post" action="{{ url_for('org.resend_invitation', invitation_id=invitation.id) }}">
+                            <input type="submit" value="Resend Invitation">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
