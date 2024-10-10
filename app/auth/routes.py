@@ -94,7 +94,8 @@ def select_organization():
         else:
             flash('You do not have access to this organization.')
     organizations = Organization.query.join(UserOrganization).filter(UserOrganization.user_id == current_user.id).all()
-    return render_template('auth/select_organization.html', organizations=organizations)
+    pending_invites = Invitation.query.filter_by(email=current_user.email, status='pending').all()
+    return render_template('auth/select_organization.html', organizations=organizations, pending_invites=pending_invites)
 
 @bp.route('/create-organization', methods=['GET', 'POST'])
 @login_required
@@ -104,13 +105,24 @@ def create_organization():
         if Organization.query.filter_by(name=name).first():
             flash('An organization with that name already exists.')
             return redirect(url_for('auth.create_organization'))
+        
         org = Organization(name=name)
         db.session.add(org)
+        db.session.flush()  # Ensure org.id is available
+        
         user_org = UserOrganization(user=current_user, organization=org, role='admin')
         db.session.add(user_org)
+        
+        current_user.current_organization_id = org.id
         db.session.commit()
-        flash(f'Organization {name} has been created.')
-        return redirect(url_for('auth.select_organization'))
+        
+        # Refresh the user object
+        fresh_user = User.query.get(current_user.id)
+        login_user(fresh_user)
+        
+        flash(f'Organization {name} has been created and set as your current organization.')
+        return redirect(url_for('org.dashboard'))
+    
     return render_template('auth/create_organization.html')
 
 @bp.route('/invite', methods=['GET', 'POST'])

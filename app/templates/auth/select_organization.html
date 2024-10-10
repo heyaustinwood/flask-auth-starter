@@ -11,4 +11,20 @@
         <input type="submit" value="Select">
     </form>
     <a href="{{ url_for('auth.create_organization') }}">Create New Organization</a>
+
+    <h2>Pending Invitations</h2>
+    {% if pending_invites %}
+        <ul>
+            {% for invite in pending_invites %}
+                <li>
+                    {{ invite.organization.name }}
+                    <form method="post" action="{{ url_for('auth.accept_invitation', token=invite.token) }}">
+                        <input type="submit" value="Accept">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No pending invitations.</p>
+    {% endif %}
 {% endblock %}
